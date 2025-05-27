@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <stack>
+#include <deque>
 using namespace std;
 
 // Queue Implementation using Linked List
@@ -161,17 +162,90 @@ public:
 
 
 // First Non-Repeating Letter
+void firstNonRepeat(string str) {
+    queue<char> q;
+    int freq[26] = {0};
 
+    for(int i=0; i<str.size(); i++) {
+        char ch = str[i];
+        q.push(ch);
+        freq[ch-'a']++;
+        
+        while(!q.empty() && freq[q.front()-'a']>1) {
+            q.pop();
+        }
+        
+        if(q.empty()) {
+            cout << "-1" << endl;
+        } else{ 
+            cout << q.front() << endl;
+        }
+    }
+}
 // Interleave 2 Queues
+void interleave(queue<int> &org) {
+    queue<int> f;
+    int n = org.size();
+    for(int i=0; i<n/2; i++) {
+        f.push(org.front());
+        org.pop();
+    }
+    while(!f.empty()) {
+        org.push(f.front());
+        f.pop();
+        org.push(org.front());
+        org.pop();
+    }
+}
 
 // Queue Reversal
-
-// Double Ended Queue
+void reversal(queue<int> &q) {
+    stack<int> s;
+    while(!q.empty()) {
+        s.push(q.front());
+        q.pop();
+    }
+    while(!s.empty()) {
+        q.push(s.top());
+        s.pop();
+    }
+}
 
 // Queue using Dequeue
 
 // Stack using Dequeue
-
+class Queue4{
+    deque<int> deq;
+public:
+    void push(int data) {
+        deq.push_back(data);
+    }
+    void pop() {
+        deq.pop_front();
+    } 
+    int front() {
+        return deq.front();
+    }
+    bool empty() {
+        return deq.empty();
+    }
+};
+class Stack2{
+    deque<int> deq;
+public:
+    void push(int data) {
+        deq.push_back(data);
+    }
+    void pop() {
+        deq.pop_back();
+    } 
+    int top() {
+        return deq.back();
+    }
+    bool empty() {
+        return deq.empty();
+    }
+};
 
 int main() {
     // Queue Implementation using Linked List
@@ -235,18 +309,76 @@ int main() {
         c.pop();
     }
     cout << endl;   
-    
+
     // First Non-Repeating Letter
+    string s = "aabccxb";
+    firstNonRepeat(s);
     
     // Interleave 2 Queues
-    
+    queue<int> org;
+    for(int i=1; i<=10; i++) {
+        org.push(i);
+    }
+    interleave(org);
+    for(int i=1; i<=10; i++) {
+        cout << org.front() << " ";
+        org.pop();
+    }
+    cout << endl;
+
     // Queue Reversal
-    
-    // Double Ended Queue
-    
-    // Queue using Dequeue
-    
-    // Stack using Dequeue
-    
+    queue<int> z;
+    z.push(1);
+    z.push(2);
+    z.push(3);
+    z.push(4);
+    z.push(5);
+    reversal(z);
+    while(!z.empty()) {
+        cout << z.front() << " ";
+        z.pop();
+    }
+    cout << endl;
+
+    // Double Ended Queue (Deque)
+    deque<int> deq;
+    deq.push_front(2);
+    deq.push_front(1);
+
+    deq.push_back(3);
+    deq.push_back(4);
+    // 1 2 3 4
+    deq.pop_front();
+    deq.pop_back();
+    // 2 3
+    cout << "Front = " << deq.front() << endl; // 2
+    cout << "Back = " << deq.back() << endl;   // 3
+
+    // Queue using Deque
+    Queue4 x;
+    x.push(1);
+    x.push(2);
+    x.push(3);
+    x.push(4);
+    x.push(5);
+    while(!x.empty()) {
+        cout << x.front() << " ";
+        x.pop();
+    }
+    cout << endl;
+
+    // Stack using Deque
+    Stack2 y;
+    y.push(1);
+    y.push(2);
+    y.push(3);
+    y.push(4);
+    y.push(5);
+    while(!y.empty()) {
+        cout << y.top() << " ";
+        y.pop();
+    }
+    cout << endl;
+
     return 0;
 }
