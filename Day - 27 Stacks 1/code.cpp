@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <list>
-
 #include <stack>
 using namespace std;
 // Stack using Vector with class template
@@ -108,9 +107,94 @@ public:
     }
 };
 
+// Push at Bottom of Stack
+template<class T>
+void pushAtBottom(stack<T>& s, T val) {
+    if(s.empty()) {
+        s.push(val);
+        return;
+    }
+    T temp = s.top();
+    s.pop();
+    pushAtBottom(s, val);
+    s.push(temp);
+}
+
+// Reverse a Stack
+template<class T>
+void reverse(stack<T> &s) {
+    if(s.empty()) {
+        return;
+    }
+    T temp = s.top();
+    s.pop();
+    reverse(s);
+    pushAtBottom(s, temp);
+}
+
+// Reverse a String using Stack
+void reverseString(string &str) {
+    stack<char> s;
+    int n = str.size();
+    for(int i=0; i<n; i++) {
+        s.push(str[i]);
+    }
+    for(int i=0; i<n; i++) {
+        str[i] = s.top();
+        s.pop();
+    }
+
+}
+string reverseString2(string str) {
+    stack<char> s;
+    string ans;
+    int n = str.size();
+    for(int i=0; i<n; i++) {
+        s.push(str[i]);
+    }
+    while(!s.empty()) {
+        ans += s.top();
+        s.pop();
+    }
+    return ans;
+}
+
+// Print Stack
+template <class T>
+void printStack(stack<T> s){
+    while(!s.empty()) {
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+}
+
+// Stock Span
+void stockSpan(vector<int> stock, vector<int> &span) {
+    stack<int> s;
+    s.push(0);
+    span[0] = 1;
+    for(int i=1; i<stock.size(); i++) {
+        while(!s.empty() && stock[i] >= stock[s.top()]) {
+            s.pop();
+        }
+        if(s.empty()) {
+            span[i] = i+1;
+        } else {
+            int prevHigh = s.top();
+            span[i] = i-prevHigh;
+        }
+
+    }
+    for(int i=0; i<span.size(); i++) {
+        cout << span[i] << " ";
+    }
+    cout << endl;
+}
+
 int main() {
     
-    Stack<int> s;
+    Stack<int> s;   // int stack
     s.push(3);
     s.push(2);
     s.push(1);
@@ -120,7 +204,7 @@ int main() {
     }
     cout << endl;
 
-    Stack<char> q;
+    Stack<char> q;  // char stack
     q.push('c');
     q.push('b');
     q.push('a');
@@ -175,10 +259,48 @@ int main() {
     } 
     cout << endl;
 
+    // Push at Bottom of Stack
+    stack<int> b;
+    b.push(3);
+    b.push(2);
+    b.push(1);
+    cout << "Before pushing at bottom: ";
+    stack<int> temp = b; // Copy the stack to print it
+    while(!temp.empty()) {
+        cout << temp.top() << " ";
+        temp.pop();
+    }
+    cout << endl;
+    pushAtBottom(b, 4);
+    cout << "After pushing 4 at bottom: ";
+    while(!b.empty()) {
+        cout << b.top() << " ";
+        b.pop();
+    }
+    cout << endl;
+
+    // Reverse a Stack
+    stack<int> c;
+    c.push(3);
+    c.push(2);
+    c.push(1);
+    cout << "Before reversal: ";
+    printStack(c);
+    reverse(c);
+    cout << "After reversal: ";
+    printStack(c);
 
     // Reverse a String using Stack
-    // Reverse a Stack
+    string str = "abcd";
+    reverseString(str); 
+    cout << str << endl;
+    string str2 = "abcd";
+    cout << reverseString2(str2) << endl; 
+
     // Stock Span
+    vector <int> stock = {100, 80, 60, 70, 60, 85, 100};
+    vector<int> span = {0, 0, 0, 0, 0, 0, 0};
+    stockSpan(stock, span);
 
     return 0;
 }
