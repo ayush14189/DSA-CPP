@@ -234,13 +234,13 @@ class Stack2{
     deque<int> deq;
 public:
     void push(int data) {
-        deq.push_back(data);
+        deq.push_front(data);
     }
     void pop() {
-        deq.pop_back();
+        deq.pop_front();
     } 
     int top() {
-        return deq.back();
+        return deq.front();
     }
     bool empty() {
         return deq.empty();
