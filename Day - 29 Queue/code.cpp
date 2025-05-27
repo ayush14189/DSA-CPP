@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
 
 // Queue Implementation using Linked List
@@ -51,15 +52,97 @@ public:
 };
 
 // Circular Queue using Array
+class Queue2{
+    int* arr;
+    int capacity;
+    int currSize;
+    int f, r;
+
+public:
+    Queue2(int capacity) {
+        this->capacity = capacity;
+        arr = new int(capacity);
+        currSize = 0;
+        f = 0;
+        r = -1;
+    }
+    void push(int data) {   // O(1)
+        if(currSize == capacity) {
+            cout << "Queue is full" << endl;
+            return;
+        }
+        r = (r+1) % capacity;
+        arr[r] = data;
+        currSize++;
+    } 
+    void pop() {            // O(1)
+        if(empty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        f = (f+1) % capacity;
+        currSize--;
+    }
+    int front() {           // O(1)
+        if(empty()) {
+            cout << "Queue is empty" << endl;
+            return -1;
+        }
+        return arr[f];
+    }
+    bool empty() {
+        return currSize == 0;
+    }
+    void printRear() {
+        cout << arr[r] << endl;
+    }
+};
 
 // Queue using 2 Stacks
+class Queue3 {
+    stack<int> s1;
+    stack<int> s2;
+public:
+    void push(int data) { // O(n)
+        // s1 -> s2
+        while(!s1.empty()) {
+            s2.push(s1.top());
+            s1.pop();
+        }
+        // s1.push(data)
+        s1.push(data);
+        // s2 -> s1
+        while(!s2.empty()) {
+            s1.push(s2.top());
+            s2.pop();
+        }
+
+    }
+    void pop() {          // O(1)
+        s1.pop();
+    }
+    int front() {         // O(1)
+        return s1.top();
+    }
+    bool empty() {
+        return s1.empty();
+    }
+};
+
 // Stack using 2 Queues
+
 // First Non-Repeating Letter
+
 // Interleave 2 Queues
+
 // Queue Reversal
+
 // Double Ended Queue
+
 // Queue using Dequeue
+
 // Stack using Dequeue
+
 
 int main() {
     // Queue Implementation using Linked List
@@ -73,6 +156,21 @@ int main() {
     }
     cout << endl;
     // Circular Queue using Array
+    Queue2 a(4);
+    a.push(1);
+    a.push(2);
+    a.push(3);
+    a.push(4);
+    a.push(5);
+
+
+    cout << a.front() << endl;
+    a.pop();
+    cout << a.front() << endl;
+    a.push(5);
+    cout << a.front() << endl;
+    a.printRear();
+
     // Queue in STL
     queue<int> p;
     p.push(1);
@@ -84,13 +182,32 @@ int main() {
         p.pop();
     }
     cout << endl;
+
     // Queue using 2 Stacks
+    Queue3 b;
+    b.push(1);
+    b.push(2);
+    b.push(3);
+    b.push(4);
+    while(!b.empty()) {
+        cout << b.front() << " ";
+        b.pop();
+    }
+    cout << endl;   
+
     // Stack using 2 Queues
+    
     // First Non-Repeating Letter
+    
     // Interleave 2 Queues
+    
     // Queue Reversal
+    
     // Double Ended Queue
+    
     // Queue using Dequeue
+    
     // Stack using Dequeue
+    
     return 0;
 }
