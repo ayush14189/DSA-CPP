@@ -27,7 +27,7 @@ void nextGreater(vector<int> arr, vector<int> ans) {
     cout << endl;
 }
 
-// Valid Paranthesis
+// Valid Paranthesis - O(n)
 bool isValid(string str) {
     stack<char> s;
     for(int i=0; i<str.size(); i++) {
@@ -54,9 +54,24 @@ bool isValid(string str) {
     return s.empty();
 }
 
-// Duplicate Paranthesis
-bool duplicate() {
-    return;
+// Duplicate Paranthesis - O(n)
+bool isDuplicate(string str) {
+    stack<char> s;
+    for(int i=0; i<str.size(); i++) {
+        char ch = str[i];
+        if(ch != ')') { // Non-Closing
+            s.push(ch);
+        } else { // Closing
+            if(s.top() == '(') {
+                return true; // Duplicate
+            }
+            while(s.top() != '(') {
+                s.pop();
+            }
+            s.pop();
+        }
+    }
+    return false;
 }
 
 // Max Area in Histogram
@@ -78,6 +93,10 @@ int main() {
     cout << isValid(str4) << endl;
 
 // Duplicate Paranthesis
+    string s1 = "((a+b))";          // true
+    string s2 = "((a+b) + (c+d))";  // false
+    cout << isDuplicate(s1) << endl; // 1
+    cout << isDuplicate(s2) << endl; // 0
 
 // Max Area in Histogram
 
