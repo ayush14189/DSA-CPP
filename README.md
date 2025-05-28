@@ -78,17 +78,11 @@ I'm an engineering student passionate about problem-solving, system design, and 
 * 🔗 [LinkedIn](https://www.linkedin.com/in/ayush-jain-techie)
 * 📫 Email: [ayushjain.official07@gamil.com](mailto:ayushjain.official07@gamil.com)
 
----
-
 ## ⭐ Star the Repo
 
 If you find this repository useful, consider giving it a ⭐ to help others discover it!
-
----
 
 ## 📜 License
 
 This repository is for educational and reference purposes only.
 Feel free to fork and modify for your own learning journey.
-
-```
