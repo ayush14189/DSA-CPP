@@ -110,20 +110,36 @@ bool isSubtree(Node* root, Node* subRoot) {
 
 // Top View of Tree
 void topView(Node* root) {
-    queue<pair<Node*,int>> q;  // (Node, HD)
-    map<int, int> m;           // (HD, Node)
+    queue<pair<Node*,int>> q;  // (node, HD)
+    map<int, int> m;           // (HD, node->data)
+
     q.push(make_pair(root, 0));
     while(!q.empty()) {
-        q.push(make_pair(root->left, -1));
-        q.push(make_pair(root->right, 1));
         pair<Node*, int> curr = q.front();
         q.pop();
+
         Node* currNode = curr.first;
         int currHD = curr.second;
-        if(m.count(currHD)==0) {
 
+        if(m.count(currHD)==0) { // HD is unique -> add to map
+            m[currHD] = currNode->data;
+        }
+        
+        if(currNode->left != NULL) {
+            pair<Node*, int> left = make_pair(currNode->left, currHD-1);
+            q.push(left);
+        }
+        
+        if(currNode->right != NULL) {
+            pair<Node*, int> right = make_pair(currNode->right, currHD+1);
+            q.push(right);
         }
     }
+    
+    for(auto it:m) {
+        cout << it.second << " ";
+    }
+    cout << endl;
 }
 
 int main() {
@@ -171,7 +187,7 @@ int main() {
     }
 
     // Top View of Tree
-        
+    topView(root);
     
     return 0;
 }
