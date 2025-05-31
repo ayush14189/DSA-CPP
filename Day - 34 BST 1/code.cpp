@@ -177,12 +177,16 @@ int main() {
     Node* root2 = buildBST(arr2, 9); 
     inorder(root2); cout << endl;
 
+    cout << "-----------------------------------------------------" << endl;
+
     // Search in BST
     cout << search(root, 2) << endl; // 1 - true
     cout << search(root, 6) << endl; // 0 - false
     cout << search(root2, 10) << endl; // 1 - true
     cout << search(root2, 2) << endl; // 0 - false
     
+    cout << "-----------------------------------------------------" << endl;
+
     // Delete a Node in BST
     inorder(root2);
     cout << endl;
@@ -196,9 +200,13 @@ int main() {
     printInRange(root2, 5, 12);
     cout << endl;
     
+    cout << "-----------------------------------------------------" << endl;
+
     // Root to Leaf Path
     rootToLeafPath(root2);
     
+    cout << "-----------------------------------------------------" << endl;
+
     // Validate BST
 
     cout << validateBST(root) << endl;  // 1 - true 
