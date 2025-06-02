@@ -46,6 +46,7 @@ public:
             
             list<int> neighbors = l[u]; // u ---- v
             for(int v : neighbors) {
+            // To ensure that one node is added only once to Queue
                 if(!vis[v]) {
                     vis[v] = true;
                     q.push(v);
@@ -56,7 +57,45 @@ public:
     }
 
     // Depth First Search
+    void dfsHelper(int u, vector<bool> &vis) {
+        vis[u] = true;
+        cout << u << " ";
 
+        list<int> neighbors = l[u];
+        for(int v : neighbors) {
+            if(!vis[v]) {
+                dfsHelper(v, vis);
+            }
+        }
+    }
+
+    void dfs() {
+        vector<bool> vis(7, false);
+        dfsHelper(0, vis);
+        cout << endl;
+    }
+
+    // Has Path Problem
+    bool pathHelper(int src, int dest, vector<bool> &vis) {
+        if(src == dest) {
+            return true;
+        }
+        vis[src] = true;
+        list<int> neighbors = l[src];
+        for(int v : neighbors) {
+            if(!vis[v]) {
+                if(pathHelper(v, dest, vis)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    bool hasPath(int src, int dest) {
+        vector<bool> vis(V, false);
+        return pathHelper(src, dest, vis);
+    }
 };
 
 // Weighted Undirected
@@ -128,14 +167,20 @@ int main() {
     g.addEdge(3, 5);
     g.addEdge(3, 4);
     g.addEdge(4, 5);
-    g.addEdge(5, 6);
+    // g.addEdge(5, 6); // Has Path Problem
 
     g.bfs();
 
     cout << "-------------------------------------" << endl;
 
     // Depth First Search
-    
+    g.dfs();    
+
+    cout << "-------------------------------------" << endl;
+
+    // Has Path Problem
+    cout << g.hasPath(0, 5) << endl; // 1
+    cout << g.hasPath(5, 6) << endl; // 0 - If edge 5-6 not added
     
     return 0;
 }
