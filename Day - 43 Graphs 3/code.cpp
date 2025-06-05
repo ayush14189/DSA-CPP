@@ -112,7 +112,7 @@ int main() {
     cout << "-----------------------------" << endl;
 
     // Kahn's Algorithm
-    graph.topoSort2();
+    graph.topoSort2(); // 4 5 0 2 3 1
     
     
     return 0;
